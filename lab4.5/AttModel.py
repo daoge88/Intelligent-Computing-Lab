@@ -81,7 +81,7 @@ class AttModel(nn.Module):
         self.enc = self.enc_emb(x)
         # Positional Encoding
         if self.hp.sinusoid:
-            self.enc += self.enc_positional_encoding(x, x)
+            self.enc += self.enc_positional_encoding(x, self.enc)
         else:
             #self.enc += self.enc_positional_encoding(
             #    Variable(torch.unsqueeze(torch.arange(0, x.size()[1]), 0).repeat(x.size(0), 1).long().cuda()))
@@ -101,7 +101,7 @@ class AttModel(nn.Module):
         self.dec = self.dec_emb(self.decoder_inputs)
         # Positional Encoding
         if self.hp.sinusoid:
-            self.dec += self.dec_positional_encoding(self.decoder_inputs, x)
+            self.dec += self.dec_positional_encoding(self.decoder_inputs, self.dec)
         else:
             #self.dec += self.dec_positional_encoding(
             #    Variable(torch.unsqueeze(torch.arange(0, self.decoder_inputs.size()[1]), 0).repeat(self.decoder_inputs.size(0), 1).long().cuda()))
