@@ -45,6 +45,8 @@ def eval(args):
     elif args.device == "GPU":
         model.cuda()
     state = torch.load(args.pretrained, map_location='cpu')
+    if isinstance(state, dict) and 'model' in state:
+        state = state['model']
     model.load_state_dict(state)
 
     print('Model Loaded.')
